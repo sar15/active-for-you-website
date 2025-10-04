@@ -1,0 +1,726 @@
+<!-- 
+  VERCEL DEPLOYMENT INSTRUCTIONS:
+  This is a single, self-contained HTML file. It requires no build step.
+  You can deploy it directly to any static hosting service like Vercel, Netlify, or GitHub Pages.
+  1. Create a new project in Vercel.
+  2. When prompted, import a Git repository or upload the project files.
+  3. If uploading, just drag and drop this 'index.html' file.
+  4. There is no build command needed. Set the framework preset to "Other".
+  5. Deploy. That's it!
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active For You - Charitable Trust | Empowering Communities in Gujarat</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Active For You Charitable Trust empowers communities through healthcare, education, women's empowerment, and sustainable development in Gujarat, India. Join us in creating lasting positive change.">
+    <meta name="keywords" content="charitable trust, NGO, Gujarat, healthcare, education, women empowerment, community development, donate, volunteer">
+    <meta name="author" content="Active For You Charitable Trust">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://activeforyou.org/">
+    <meta property="og:title" content="Active For You - Charitable Trust">
+    <meta property="og:description" content="Empowering communities through healthcare, education, and sustainable development. Join us in creating lasting positive change.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=1200&auto=format&fit=crop">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://activeforyou.org/">
+    <meta property="twitter:title" content="Active For You - Charitable Trust">
+    <meta property="twitter:description" content="Empowering communities through healthcare, education, and sustainable development.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=1200&auto=format&fit=crop">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3E%3Cpath d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/%3E%3C/svg%3E">
+    
+    <!-- Preconnect for faster CDN loading -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <!-- React Libraries - Production Build for Better Performance -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+
+    <!-- Babel for JSX compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+    <!-- Custom Styles -->
+    <style>
+        /* CSS Keyframes for Animations */
+        @keyframes blob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+
+        /* Utility classes to apply animations in JSX */
+        .animate-blob { animation: blob 7s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animation-delay-1000 { animation-delay: 1s; }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-in-out; }
+        
+        /* Animation fill mode utilities for staggered animations */
+        .animation-delay-200 { animation-delay: 0.2s; animation-fill-mode: both; }
+        .animation-delay-400 { animation-delay: 0.4s; animation-fill-mode: both; }
+        .animation-delay-600 { animation-delay: 0.6s; animation-fill-mode: both; }
+        .animation-delay-800 { animation-delay: 0.8s; animation-fill-mode: both; }
+        
+        /* Accessibility - Skip to main content link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Smooth image loading */
+        img {
+            image-rendering: -webkit-optimize-contrast;
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f4f6;
+            border-top: 5px solid #10b981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 20px; color: #10b981; font-weight: 600; font-size: 18px;">Loading Active For You...</p>
+    </div>
+    
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+        // --- STRICT INSTRUCTIONS FOR IDE AI ASSISTANT ---
+        //
+        // PROJECT OVERVIEW:
+        // This is a single-file React application. The entire website, including all pages,
+        // components, state, and logic, is contained within this one <script> tag. It uses
+        // React and Tailwind CSS loaded via CDNs. It does NOT have a build step.
+        //
+        // --- RULE 1: WHAT YOU CAN AND SHOULD CHANGE (SAFE TO EDIT) ---
+        //   - TEXT CONTENT: Any visible text inside JSX tags (e.g., <p>Some text</p>, <h1>Title</h1>).
+        //     This includes descriptions, names, roles, and contact information in the data arrays.
+        //   - STYLING: You can add, remove, or modify Tailwind CSS classes (e.g., `bg-blue-500` , `text-xl` ).
+        //   - IMAGE URLs: The `src`  attribute of `<img>`  tags, especially in the `galleryImagesData` 
+        //     and `teamMembers`  arrays, can be safely updated with new placeholder or final image links.
+        //   - SOCIAL MEDIA LINKS: The `href`  attribute in `<a>`  tags for social media can be changed.
+        //
+        // --- RULE 2: WHAT YOU MUST NOT CHANGE (CRITICAL - DO NOT TOUCH) ---
+        //   - STATE MANAGEMENT & STRUCTURE: Do NOT change the core state variables defined with `useState` .
+        //     The application's logic for `activePage` , `isModalOpen` , `mobileMenuOpen` , etc., is fundamental.
+        //   - NAVIGATION LOGIC: The `MapsToPage`  function is the routing system for this single-page app.
+        //     Do NOT alter its core functionality.
+        //   - CONDITIONAL RENDERING: The logic that shows/hides pages (`{activePage === 'home' && <HomePage />}` )
+        //     is essential. Do not modify it.
+        //   - FILE STRUCTURE: Do NOT suggest splitting this into multiple files or components. This entire
+        //     application must remain within this single HTML file to be deployable.
+        //   - REACT RENDER METHOD: Do not touch the final `ReactDOM.createRoot(container).render(...)`  call.
+        //
+        // --- RULE 3: WHAT TO CHANGE WITH CAUTION (MEDIUM RISK) ---
+        //   - EVENT HANDLERS (e.g., `handleSubmit` , `handleImageUpload` ): You can improve the code inside
+        //     these functions, but you must preserve their primary purpose. For example, `handleSubmit` 
+        //     must continue to show a notification, and `handleImageUpload`  must handle file reading.
+        //   - `useEffect`  HOOKS: These handle important side effects like scroll listeners and body overflow.
+        //     Understand their purpose fully before suggesting changes.
+        //   - ADDING NEW STATE: If you add new state with `useState` , ensure you fully implement its logic
+        //     and understand how it impacts the rest of the application.
+        //
+        // By following these rules, you will help maintain the website's stability while improving its content and appearance.
+        // --- END OF INSTRUCTIONS ---
+
+
+
+        const { useState, useEffect, useRef } = React;
+
+
+        // --- ICON COMPONENTS ---
+        // IDE AI: This section defines SVG icons. Do not modify unless an icon is broken or you are adding a new one.
+        const Icon = ({ children, ...props }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+                {children}
+            </svg>
+        );
+        const Menu = props => <Icon {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></Icon>;
+        const X = props => <Icon {...props}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></Icon>;
+        const Heart = props => <Icon {...props}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></Icon>;
+        const Users = props => <Icon {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></Icon>;
+        const Book = props => <Icon {...props}><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></Icon>;
+        const Stethoscope = props => <Icon {...props}><path d="M4.8 2.3A.3.3 0 1 0 5 2a.3.3 0 0 0-.2.3" /><path d="M8 2a2 2 0 0 1 2 2v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 1 2-2" /><path d="M8 4H5.3A.3.3 0 0 0 5 4.3v0a.3.3 0 0 0 .3.3H8" /><circle cx="6" cy="18" r="2" /><circle cx="18" cy="18" r="2" /></Icon>;
+        const Sprout = props => <Icon {...props}><path d="M7 20h10" /><path d="M12 20V4" /><path d="M12 4H9.5a2.5 2.5 0 0 1 0-5C10.61 1.57 12 3.11 12 4Z" /><path d="M12 4h2.5a2.5 2.5 0 0 0 0-5C13.39 1.57 12 3.11 12 4Z" /></Icon>;
+        const ChevronRight = props => <Icon {...props}><path d="m9 18 6-6-6-6" /></Icon>;
+        const Phone = props => <Icon {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></Icon>;
+        const Mail = props => <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></Icon>;
+        const MapPin = props => <Icon {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></Icon>;
+        const Award = props => <Icon {...props}><circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" /></Icon>;
+        const Target = props => <Icon {...props}><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></Icon>;
+        const Eye = props => <Icon {...props}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></Icon>;
+        const Send = props => <Icon {...props}><path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" /></Icon>;
+        const Facebook = props => <Icon {...props}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></Icon>;
+        const Twitter = props => <Icon {...props}><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 4.9-6.1-1.4-12.1-5.2-12.1-5.2s-2 6.3 6.9 10.6c-2.2 2.3-5.5 2.8-5.5 2.8s.2 2.1 4.1 2.5c4.2.4 9.1-2.8 11.5-6.7 2.3-3.8 1.9-8.5 1.9-8.5z" /></Icon>;
+        const Instagram = props => <Icon {...props}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></Icon>;
+        const Linkedin = props => <Icon {...props}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></Icon>;
+        const Calendar = props => <Icon {...props}><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /></Icon>;
+        const Upload = props => <Icon {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></Icon>;
+        const Copy = props => <Icon {...props}><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></Icon>;
+        const Check = props => <Icon {...props}><path d="M20 6 9 17l-5-5" /></Icon>;
+        const ArrowRight = props => <Icon {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></Icon>;
+        const Trash = props => <Icon {...props}><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></Icon>;
+
+
+        // --- MAIN APP COMPONENT ---
+        function CharityWebsite() {
+            // --- STATE MANAGEMENT ---
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+            const [activePage, setActivePage] = useState('home');
+            const [scrolled, setScrolled] = useState(false);
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [notification, setNotification] = useState({ show: false, message: '' });
+            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+            const [showAdminLogin, setShowAdminLogin] = useState(false);
+            const [adminPassword, setAdminPassword] = useState('');
+            
+            // Load images from localStorage or use defaults
+            const getInitialGalleryImages = () => {
+                const savedImages = localStorage.getItem('galleryImages');
+                if (savedImages) {
+                    return JSON.parse(savedImages);
+                }
+                return [
+                    { id: 1, category: "Medical Camp", src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" },
+                    { id: 2, category: "Women's Training", src: "https://images.unsplash.com/photo-1527525443430-e1d894de2b4d?q=80&w=2070&auto=format&fit=crop" },
+                    { id: 3, category: "Education Program", src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" },
+                    { id: 4, category: "Community Event", src: "https://images.unsplash.com/photo-1542628652-243CE1464676?q=80&w=1932&auto=format&fit=crop" },
+                    { id: 5, category: "Tree Plantation", src: "https://images.unsplash.com/photo-1618224341595-6b5a3dd52718?q=80&w=2070&auto=format&fit=crop" },
+                    { id: 6, category: "Health Checkup", src: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=1932&auto=format&fit=crop" },
+                    { id: 7, category: "Skill Development", src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" },
+                    { id: 8, category: "Student Support", src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" }
+                ];
+            };
+            
+            const [galleryImagesData, setGalleryImagesData] = useState(getInitialGalleryImages());
+            
+            // --- DATA ---
+            const programs = [
+                { icon: <Stethoscope className="h-10 w-10" />, title: "Healthcare Initiatives", description: "Organizing free medical camps and health check-ups in underserved communities, providing essential healthcare services to those who need it most.", color: "from-blue-500 to-blue-600", bgColor: "from-blue-50 to-blue-100", textColor: "text-blue-600" },
+                { icon: <Users className="h-10 w-10" />, title: "Women's Empowerment", description: "Providing skill development training and vocational programs to empower women with financial independence and self-confidence.", color: "from-pink-500 to-pink-600", bgColor: "from-pink-50 to-pink-100", textColor: "text-pink-600" },
+                { icon: <Book className="h-10 w-10" />, title: "Educational Development", description: "Supporting underprivileged students with educational resources, scholarships, and learning opportunities for a brighter future.", color: "from-amber-500 to-amber-600", bgColor: "from-amber-50 to-amber-100", textColor: "text-amber-600" },
+                { icon: <Users className="h-10 w-10" />, title: "Community Seminars", description: "Conducting cultural awareness programs and community engagement workshops to foster social harmony and holistic development.", color: "from-purple-500 to-purple-600", bgColor: "from-purple-50 to-purple-100", textColor: "text-purple-600" },
+                { icon: <Sprout className="h-10 w-10" />, title: "Environmental Initiatives", description: "Implementing gardening programs and tree plantation drives to create sustainable, green communities for future generations.", color: "from-green-500 to-green-600", bgColor: "from-green-50 to-green-100", textColor: "text-green-600" }
+            ];
+            const teamMembers = [
+                { name: "Dr. Anjali Sharma", role: "President & Founder", image: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop", social: { linkedin: "#", twitter: "#"} },
+                { name: "Rajesh Kumar", role: "Vice President", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop", social: { linkedin: "#", twitter: "#"} },
+                { name: "Priya Singh", role: "Secretary", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop", social: { linkedin: "#", twitter: "#"} },
+                { name: "Amit Patel", role: "Treasurer", image: "https://images.unsplash.com/photo-1590086782792-42dd2350140d?q=80&w=1887&auto=format&fit=crop", social: { linkedin: "#", twitter: "#"} },
+                { name: "Sunita Devi", role: "Community Outreach Head", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop", social: { linkedin: "#", twitter: "#"} },
+                { name: "Vikram Rathore", role: "Program Coordinator", image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop", social: { linkedin: "#", twitter: "#"} }
+            ];
+            
+            // --- HOOKS & SIDE EFFECTS ---
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+            
+            useEffect(() => {
+                document.body.style.overflow = isModalOpen ? 'hidden' : 'unset';
+            }, [isModalOpen]);
+            
+            // Save gallery images to localStorage whenever they change
+            useEffect(() => {
+                localStorage.setItem('galleryImages', JSON.stringify(galleryImagesData));
+            }, [galleryImagesData]);
+
+
+            // --- HANDLER FUNCTIONS ---
+            const handleFormChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+            
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setNotification({ show: true, message: 'Thank you! Your message has been sent.' });
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+            };
+
+
+            const navigateToPage = (page) => {
+                setActivePage(page);
+                setMobileMenuOpen(false);
+                window.scrollTo(0, 0);
+            };
+
+            // Admin authentication handler
+            const handleAdminLogin = (e) => {
+                e.preventDefault();
+                // CHANGE THIS PASSWORD TO YOUR OWN SECURE PASSWORD
+                const ADMIN_PASSWORD = 'admin123'; // ⚠️ CHANGE THIS!
+                
+                if (adminPassword === ADMIN_PASSWORD) {
+                    setIsAdminAuthenticated(true);
+                    setShowAdminLogin(false);
+                    setAdminPassword('');
+                    setNotification({ show: true, message: 'Admin access granted!' });
+                    setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+                } else {
+                    setNotification({ show: true, message: 'Incorrect password!' });
+                    setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+                    setAdminPassword('');
+                }
+            };
+
+            const handleAdminLogout = () => {
+                setIsAdminAuthenticated(false);
+                setNotification({ show: true, message: 'Logged out successfully' });
+                setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+            };
+
+            // Delete image handler
+            const handleDeleteImage = (imageId) => {
+                if (window.confirm('Are you sure you want to delete this image?')) {
+                    setGalleryImagesData(prevImages => prevImages.filter(img => img.id !== imageId));
+                    setNotification({ show: true, message: 'Image deleted successfully' });
+                    setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+                }
+            };
+            
+            const handleImageUpload = (event) => {
+                const files = Array.from(event.target.files);
+                if (files.length === 0) return;
+
+                // Validate file types and sizes
+                const validFiles = files.filter(file => {
+                    const isImage = file.type.startsWith('image/');
+                    const isValidSize = file.size <= 5 * 1024 * 1024; // 5MB limit
+                    return isImage && isValidSize;
+                });
+
+                if (validFiles.length === 0) {
+                    setNotification({ show: true, message: 'Please select valid image files (max 5MB each)' });
+                    setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+                    return;
+                }
+
+                const newImages = validFiles.map(file => {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve({ id: Date.now() + Math.random(), category: file.name.replace(/\.[^/.]+$/, ""), src: e.target.result });
+                        reader.onerror = () => reject(new Error('Failed to read file'));
+                        reader.readAsDataURL(file);
+                    });
+                });
+                
+                Promise.all(newImages)
+                    .then(imageData => {
+                        setGalleryImagesData(prevImages => [...imageData, ...prevImages]);
+                        setNotification({ show: true, message: `${validFiles.length} image(s) added successfully!` });
+                        setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+                    })
+                    .catch(error => {
+                        console.error('Error uploading images:', error);
+                        setNotification({ show: true, message: 'Error uploading some images. Please try again.' });
+                        setTimeout(() => setNotification({ show: false, message: '' }), 3000);
+                    });
+
+                // Reset the input
+                event.target.value = '';
+            };
+
+
+            // --- RENDERED COMPONENTS ---
+
+            const AdminLoginModal = () => {
+                return (
+                    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 animate-fadeIn" role="dialog" aria-modal="true" aria-labelledby="admin-login-title">
+                        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative transform transition-all scale-95 opacity-0 animate-fadeInUp">
+                            <button onClick={() => { setShowAdminLogin(false); setAdminPassword(''); }} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-full" aria-label="Close admin login">
+                                <X className="h-6 w-6" />
+                            </button>
+                            <h2 id="admin-login-title" className="text-3xl font-bold text-gray-800 mb-2">🔐 Admin Login</h2>
+                            <p className="text-gray-600 mb-6">Enter password to upload gallery images</p>
+                            
+                            <form onSubmit={handleAdminLogin} className="space-y-4">
+                                <div>
+                                    <label htmlFor="admin-password" className="block text-gray-700 font-semibold mb-2">Password</label>
+                                    <input 
+                                        id="admin-password"
+                                        type="password" 
+                                        value={adminPassword}
+                                        onChange={(e) => setAdminPassword(e.target.value)}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors"
+                                        placeholder="Enter admin password"
+                                        required
+                                        autoFocus
+                                    />
+                                </div>
+                                <button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-3 rounded-xl font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                                    Login
+                                </button>
+                            </form>
+                            <p className="text-xs text-gray-500 mt-4 text-center">Contact admin if you need access</p>
+                        </div>
+                    </div>
+                );
+            };
+
+            const DonationModal = () => {
+                const [copied, setCopied] = useState(false);
+                const upiId = '9925255729@paytm';
+                const closeButtonRef = useRef(null);
+
+
+                useEffect(() => {
+                    if(closeButtonRef.current) {
+                        closeButtonRef.current.focus();
+                    }
+                }, []);
+                
+                const handleCopy = () => {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = upiId;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+
+
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                };
+
+
+                return (
+                    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 animate-fadeIn" role="dialog" aria-modal="true" aria-labelledby="donation-title">
+                        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative text-center transform transition-all scale-95 opacity-0 animate-fadeInUp">
+                             <button ref={closeButtonRef} onClick={() => setIsModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-full" aria-label="Close donation dialog">
+                                 <X className="h-6 w-6" />
+                             </button>
+                             <h2 id="donation-title" className="text-3xl font-bold text-gray-800 mb-2">💚 Donate via UPI</h2>
+                             <p className="text-gray-600 mb-6">Your support makes a world of difference!</p>
+                             
+                             <div className="bg-gray-50 p-4 rounded-lg">
+                                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${upiId}&pn=Active%20For%20You%20Trust` } alt="UPI QR Code for donation" className="mx-auto mb-4 rounded-lg shadow-md" />
+                                <p className="text-sm text-gray-500 mb-2">Scan with any UPI app</p>
+                                <div className="flex items-center justify-center bg-white p-2 rounded-lg border">
+                                    <p className="font-semibold text-gray-800 text-lg mr-2"><span className="text-emerald-600">{upiId}</span></p>
+                                    <button onClick={handleCopy} className="p-2 rounded-md bg-gray-200 hover:bg-gray-300 transition-colors" aria-label="Copy UPI ID">
+                                        {copied ? <Check className="h-5 w-5 text-green-600" /> : <Copy className="h-5 w-5 text-gray-600" />}
+                                    </button>
+                                </div>
+                             </div>
+                             <p className="text-xs text-gray-500 mt-4">100% of your donation goes directly to our programs. No processing fees!</p>
+                        </div>
+                    </div>
+                );
+            };
+
+
+            const Navigation = () => (
+                <header className={`fixed w-full top-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg py-2' : 'bg-white/95 backdrop-blur-md py-4'}` }>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center">
+                            <a href="#home" onClick={(e) => { e.preventDefault(); navigateToPage('home'); }} className="flex items-center cursor-pointer" aria-label="Active For You Home">
+                                <div className="relative"><div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full blur-md opacity-60 animate-pulse"></div><Heart className="relative h-12 w-12 text-emerald-600" fill="currentColor" /></div>
+                                <div className="ml-3"><h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">Active For You</h1><p className="text-xs text-gray-600 font-medium">Charitable Trust</p></div>
+                            </a>
+                            <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+                                {['home', 'about', 'programs', 'gallery', 'team', 'contact'].map((page) => (<button key={page} onClick={() => navigateToPage(page)} className={`font-semibold transition-all duration-300 relative ${activePage === page ? 'text-emerald-600' : 'text-gray-700 hover:text-emerald-600'}` }>{page.charAt(0).toUpperCase() + page.slice(1)}{activePage === page && (<span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-600 to-blue-600"></span>)}</button>))}
+                                <button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">Donate Now</button>
+                            </nav>
+                            <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Open mobile menu">{mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
+                        </div>
+                        {mobileMenuOpen && (<nav className="md:hidden mt-4 pb-4 space-y-3 animate-fadeIn" aria-label="Mobile navigation">{['home', 'about', 'programs', 'gallery', 'team', 'contact'].map((page) => (<button key={page} onClick={() => navigateToPage(page)} className={`block w-full text-left px-4 py-2 rounded-lg font-semibold transition-all ${activePage === page ? 'bg-emerald-50 text-emerald-600' : 'text-gray-700 hover:bg-gray-50'}` }>{page.charAt(0).toUpperCase() + page.slice(1)}</button>))}<button onClick={() => { setIsModalOpen(true); setMobileMenuOpen(false); }} className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold">Donate Now</button></nav>)}
+                    </div>
+                </header>
+            );
+
+
+            const HomePage = () => (
+                <div id="home">
+                    <section className="pt-32 pb-20 bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div><div className="absolute top-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div><div className="absolute bottom-0 left-1/2 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+                        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="grid md:grid-cols-2 gap-12 items-center">
+                                <div className="space-y-8">
+                                    <div className="inline-block animate-fadeInUp"><span className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">Transforming Lives Since 2022</span></div>
+                                    <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight animate-fadeInUp animation-delay-200">Empowering Communities, <span className="block bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">Creating Hope</span></h1>
+                                    <p className="text-xl text-gray-600 leading-relaxed animate-fadeInUp animation-delay-400">Active For You Charitable Trust is dedicated to creating lasting positive change through healthcare, education, women's empowerment, and sustainable community development.</p>
+                                    <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp animation-delay-600">
+                                        <button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center group">Support Our Cause <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" /></button>
+                                        <button onClick={() => navigateToPage('about')} className="border-2 border-emerald-600 text-emerald-600 px-8 py-4 rounded-full font-semibold hover:bg-emerald-50 transition-all duration-300">Learn More</button>
+                                    </div>
+                                </div>
+                                <div className="relative animate-fadeInUp animation-delay-800">
+                                    <div className="relative bg-gradient-to-br from-emerald-400 to-blue-500 rounded-3xl p-4 sm:p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop" alt="A pair of hands holding a heart-shaped collection of coins, symbolizing charity." className="rounded-2xl w-full h-auto object-cover transform -rotate-3 hover:rotate-0 transition-transform duration-500" />
+                                    </div>
+                                    <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-2xl animate-float"><p className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">5000+</p><p className="text-gray-600 font-semibold">Lives Impacted</p></div>
+                                    <div className="absolute -top-8 -right-8 bg-white p-6 rounded-2xl shadow-2xl animate-float animation-delay-1000"><p className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">50+</p><p className="text-gray-600 font-semibold">Medical Camps</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section className="py-20 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-black opacity-10"></div>
+                        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">{[{ number: "50+", label: "Medical Camps", icon: <Stethoscope /> }, { number: "1000+", label: "Women Empowered", icon: <Users /> }, { number: "3000+", label: "Students Supported", icon: <Book /> }, { number: "100+", label: "Community Events", icon: <Calendar /> }].map((stat, index) => (<div key={index} className="transform hover:scale-110 transition-transform duration-300"><div className="flex justify-center mb-4 text-white opacity-80">{React.cloneElement(stat.icon, { className: "h-12 w-12" })}</div><p className="text-5xl font-bold text-white mb-2">{stat.number}</p><p className="text-emerald-100 font-medium">{stat.label}</p></div>))}</div></div>
+                    </section>
+                    <section className="py-20 bg-white">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-16"><span className="text-emerald-600 font-semibold text-lg">What We Do</span><h2 className="text-5xl font-bold text-gray-900 mt-2 mb-4">Our Impact Programs</h2><p className="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive initiatives addressing the most critical needs of our communities</p></div>
+                            <div className="grid md:grid-cols-3 gap-8">{programs.slice(0, 3).map((program, index) => (<div key={index} className={`bg-gradient-to-br ${program.bgColor} p-8 rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group` }><div className={`bg-gradient-to-br ${program.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform` }>{program.icon}</div><h3 className="text-2xl font-bold text-gray-900 mb-4">{program.title}</h3><p className="text-gray-600 mb-6 leading-relaxed">{program.description}</p><button onClick={() => navigateToPage('programs')} className={`${program.textColor} font-semibold flex items-center group-hover:gap-2 transition-all` }>Learn More <ChevronRight className="h-5 w-5" /></button></div>))}</div>
+                            <div className="text-center mt-12"><button onClick={() => navigateToPage('programs')} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">View All Programs</button></div>
+                        </div>
+                    </section>
+                    <section className="py-20 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 relative overflow-hidden">
+                        <div className="absolute inset-0"><div className="absolute inset-0 bg-black opacity-20"></div></div>
+                        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><h2 className="text-5xl font-bold text-white mb-6">Your Support Changes Lives</h2><p className="text-xl text-emerald-50 mb-10 leading-relaxed">Join us in our mission to create sustainable change. Every contribution, big or small, helps us reach more communities and transform more lives.</p><button onClick={() => setIsModalOpen(true)} className="bg-white text-emerald-600 px-12 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-2xl">Make a Donation Today</button></div>
+                    </section>
+                </div>
+            );
+            
+            const AboutPage = () => (
+                <div id="about" className="pt-24">
+                    <section className="py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-16"><h1 className="text-5xl font-bold text-gray-900 mb-4">About Us</h1><p className="text-xl text-gray-600 max-w-3xl mx-auto">Dedicated to creating positive, lasting change in communities through compassion and action</p></div>
+                            <div className="grid md:grid-cols-2 gap-16 items-center mb-20"><div><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto=format&fit=crop" alt="A group of diverse volunteers working together happily." className="rounded-3xl shadow-xl w-full h-auto object-cover"/></div><div className="space-y-6"><h2 className="text-4xl font-bold text-gray-900">Our Story</h2><p className="text-lg text-gray-600 leading-relaxed">Active For You Charitable Trust was founded with a simple yet powerful vision: to create a world where every individual has access to basic necessities like healthcare, education, and opportunities for growth.</p><p className="text-lg text-gray-600 leading-relaxed">Since our inception, we have been committed to serving underprivileged communities through various impactful programs. Our holistic approach addresses multiple aspects of community development, ensuring sustainable and meaningful change.</p></div></div>
+                            <div className="grid md:grid-cols-3 gap-8 mb-20">
+                                <div className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-all"><div className="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"><Target className="h-8 w-8 text-white" /></div><h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3><p className="text-gray-600">To empower communities through healthcare, education, and sustainable development programs that create lasting positive impact.</p></div>
+                                <div className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-all"><div className="bg-gradient-to-br from-emerald-500 to-emerald-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"><Eye className="h-8 w-8 text-white" /></div><h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3><p className="text-gray-600">A world where every individual has access to quality healthcare, education, and opportunities to thrive and reach their full potential.</p></div>
+                                <div className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-all"><div className="bg-gradient-to-br from-purple-500 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"><Award className="h-8 w-8 text-white" /></div><h3 className="text-2xl font-bold text-gray-900 mb-4">Our Values</h3><p className="text-gray-600">Compassion, integrity, inclusivity, and excellence guide everything we do as we serve communities with dedication and respect.</p></div>
+                            </div>
+                            <div className="bg-white rounded-3xl p-12 shadow-xl"><h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Why Choose Us</h2><div className="grid md:grid-cols-2 gap-8">{[{ title: "Transparency", desc: "Complete accountability in all our operations and fund utilization." }, { title: "Impact Driven", desc: "Measurable outcomes and sustainable change in every program." }, { title: "Community First", desc: "Programs designed with and for the communities we serve." }, { title: "Professional Team", desc: "Dedicated experts committed to excellence in service delivery." }].map((item, index) => (<div key={index} className="flex items-start space-x-4"><div className="bg-gradient-to-br from-emerald-500 to-blue-600 w-3 h-3 rounded-full mt-2 flex-shrink-0"></div><div><h4 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h4><p className="text-gray-600">{item.desc}</p></div></div>))}</div></div>
+                        </div>
+                    </section>
+                </div>
+            );
+
+
+            const ProgramsPage = () => (
+                <div id="programs" className="pt-24">
+                    <section className="py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-16"><h1 className="text-5xl font-bold text-gray-900 mb-4">Our Programs</h1><p className="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive initiatives designed to address the most critical needs and create sustainable impact</p></div>
+                            <div className="space-y-12">{programs.map((program, index) => (<div key={index} className={`bg-gradient-to-br ${program.bgColor} rounded-3xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300` }><div className="grid md:grid-cols-2 gap-8 items-center"><div className={`p-12 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}` }><div className={`bg-gradient-to-br ${program.color} w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-white` }>{React.cloneElement(program.icon, { className: "h-12 w-12" })}</div><h3 className="text-3xl font-bold text-gray-900 mb-4">{program.title}</h3><p className="text-gray-700 text-lg leading-relaxed mb-6">{program.description}</p><ul className="space-y-3 mb-6"><li className="flex items-start"><ChevronRight className={`${program.textColor} h-6 w-6 mr-2 flex-shrink-0 mt-0.5` } /><span className="text-gray-700">Regular community outreach programs</span></li><li className="flex items-start"><ChevronRight className={`${program.textColor} h-6 w-6 mr-2 flex-shrink-0 mt-0.5` } /><span className="text-gray-700">Professional expert guidance and support</span></li><li className="flex items-start"><ChevronRight className={`${program.textColor} h-6 w-6 mr-2 flex-shrink-0 mt-0.5` } /><span className="text-gray-700">Sustainable and measurable impact</span></li></ul><button onClick={() => setIsModalOpen(true)} className={`${program.textColor} font-semibold flex items-center text-lg group` }>Get Involved <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" /></button></div><div className={`h-full min-h-[400px] bg-gradient-to-br ${program.color} flex items-center justify-center ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}` }><div className="text-white text-9xl opacity-20">{React.cloneElement(program.icon, { className: "w-32 h-32" })}</div></div></div></div>))}</div>
+                        </div>
+                    </section>
+                </div>
+            );
+
+
+            const GalleryPage = () => {
+                const fileInputRef = useRef(null);
+                return (
+                    <div id="gallery" className="pt-24">
+                        <section className="py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="text-center mb-8"><h1 className="text-5xl font-bold text-gray-900 mb-4">Our Gallery</h1><p className="text-xl text-gray-600 max-w-3xl mx-auto">Moments that capture our journey of transforming lives and empowering communities</p></div>
+                                
+                                {/* Admin Upload Controls - Only visible to admins */}
+                                {isAdminAuthenticated && (
+                                    <div className="text-center mb-12">
+                                        <div className="space-y-4">
+                                            <div className="flex justify-center items-center gap-4 flex-wrap">
+                                                <input type="file" multiple accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
+                                                <button onClick={() => fileInputRef.current.click()} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center">
+                                                    <Upload className="h-5 w-5 mr-2"/> Upload Photos
+                                                </button>
+                                                <button onClick={handleAdminLogout} className="bg-gray-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-700 transition-all duration-300">
+                                                    Logout
+                                                </button>
+                                            </div>
+                                            <p className="text-sm text-emerald-600 font-semibold">✓ Admin Mode Active - You can delete images by clicking the trash icon</p>
+                                        </div>
+                                    </div>
+                                )}
+                                
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {galleryImagesData.map((image) => (
+                                        <div key={image.id} className="group relative overflow-hidden rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer aspect-w-4 aspect-h-3">
+                                            <img src={image.src} alt={image.category} className="w-full h-full object-cover"/>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                                                <div className="p-4 sm:p-6 w-full flex justify-between items-end">
+                                                    <p className="text-white font-semibold text-lg truncate">{image.category}</p>
+                                                    {isAdminAuthenticated && (
+                                                        <button 
+                                                            onClick={(e) => { e.stopPropagation(); handleDeleteImage(image.id); }}
+                                                            className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition-colors ml-2 flex-shrink-0"
+                                                            aria-label="Delete image"
+                                                        >
+                                                            <Trash className="h-5 w-5" />
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                );
+            }
+
+
+            const TeamPage = () => (
+                <div id="team" className="pt-24">
+                    <section className="py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-16"><h1 className="text-5xl font-bold text-gray-900 mb-4">Our Team</h1><p className="text-xl text-gray-600 max-w-3xl mx-auto">Dedicated individuals working together to create meaningful change in communities</p></div>
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {teamMembers.map((member, index) => (<div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-300"><img src={member.image} alt={`Portrait of ${member.name}, ${member.role}` } className="w-full h-64 object-cover object-center"/><div className="p-6 text-center"><h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3><p className="text-emerald-600 font-semibold mb-4">{member.role}</p><div className="flex justify-center gap-3"><a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors" aria-label={`${member.name}'s LinkedIn Profile` }><Linkedin className="h-5 w-5" /></a><a href={member.social.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label={`${member.name}'s Twitter Profile` }><Twitter className="h-5 w-5" /></a></div></div></div>))}
+                            </div>
+                            <div className="mt-16 bg-white rounded-3xl p-12 shadow-xl"><div className="text-center mb-8"><h2 className="text-3xl font-bold text-gray-900 mb-4">Join Our Team</h2><p className="text-gray-600 max-w-2xl mx-auto">We're always looking for passionate individuals who want to make a difference. If you're interested in joining our mission, we'd love to hear from you.</p></div><div className="text-center"><button onClick={() => navigateToPage('contact')} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">Contact Us Today</button></div></div>
+                        </div>
+                    </section>
+                </div>
+            );
+
+
+            const ContactPage = () => (
+                <div id="contact" className="pt-24">
+                    <section className="py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-16"><h1 className="text-5xl font-bold text-gray-900 mb-4">Contact Us</h1><p className="text-xl text-gray-600 max-w-3xl mx-auto">Get in touch with us to learn more about our work or to get involved</p></div>
+                            <div className="grid md:grid-cols-2 gap-12">
+                                <div className="space-y-8">
+                                    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all"><div className="flex items-start space-x-4"><div className="bg-gradient-to-br from-emerald-500 to-emerald-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"><Phone className="h-6 w-6 text-white" /></div><div><h3 className="text-xl font-bold text-gray-900 mb-2">Phone</h3><p className="text-gray-600 mb-2">Call us during business hours</p><a href="tel:9925255729" className="text-emerald-600 font-semibold text-lg hover:text-emerald-700">9925255729</a></div></div></div>
+                                    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all"><div className="flex items-start space-x-4"><div className="bg-gradient-to-br from-blue-500 to-blue-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"><Mail className="h-6 w-6 text-white" /></div><div><h3 className="text-xl font-bold text-gray-900 mb-2">Email</h3><p className="text-gray-600 mb-2">Send us an email anytime</p><a href="mailto:ACTIVEFORYOUTRUST@GMAIL.COM" className="text-blue-600 font-semibold hover:text-blue-700 break-all">ACTIVEFORYOUTRUST@GMAIL.COM</a></div></div></div>
+                                    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all"><div className="flex items-start space-x-4"><div className="bg-gradient-to-br from-purple-500 to-purple-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"><MapPin className="h-6 w-6 text-white" /></div><div><h3 className="text-xl font-bold text-gray-900 mb-2">Location</h3><p className="text-gray-600">Ahmedabad, Gujarat, India</p></div></div></div>
+                                     <div className="bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl p-8 text-white"><h3 className="text-2xl font-bold mb-4">Connect With Us</h3><p className="mb-6">Follow us on social media for updates and stories</p><div className="flex gap-4"><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="bg-white/20 backdrop-blur-sm w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/30 transition-all" aria-label="Facebook page"><Facebook className="h-6 w-6" /></a><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="bg-white/20 backdrop-blur-sm w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/30 transition-all" aria-label="Instagram page"><Instagram className="h-6 w-6" /></a><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="bg-white/20 backdrop-blur-sm w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/30 transition-all" aria-label="Twitter page"><Twitter className="h-6 w-6" /></a><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="bg-white/20 backdrop-blur-sm w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/30 transition-all" aria-label="LinkedIn page"><Linkedin className="h-6 w-6" /></a></div></div>
+                                </div>
+                                <div className="bg-white rounded-2xl p-8 shadow-xl"><h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3><form onSubmit={handleSubmit} className="space-y-6"><div><label htmlFor="name-input" className="block text-gray-700 font-semibold mb-2">Your Name</label><input id="name-input" type="text" name="name" value={formData.name} onChange={handleFormChange} required className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors" placeholder="John Doe" /></div><div><label htmlFor="email-input" className="block text-gray-700 font-semibold mb-2">Email Address</label><input id="email-input" type="email" name="email" value={formData.email} onChange={handleFormChange} required className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors" placeholder="john@example.com" /></div><div><label htmlFor="message-input" className="block text-gray-700 font-semibold mb-2">Message</label><textarea id="message-input" name="message" value={formData.message} onChange={handleFormChange} required rows="5" className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors resize-none" placeholder="Tell us how we can help..."></textarea></div><button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-4 rounded-xl font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center" >Send Message<Send className="ml-2 h-5 w-5" /></button></form></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+
+
+            const Footer = () => (
+                <footer className="bg-gray-900 text-white py-16">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                            <div><div className="flex items-center mb-6"><Heart className="h-10 w-10 text-emerald-400" fill="currentColor" /><div className="ml-3"><h3 className="font-bold text-xl">Active For You</h3><p className="text-xs text-gray-400">Charitable Trust</p></div></div><p className="text-gray-400 leading-relaxed">Empowering communities through healthcare, education, and sustainable development initiatives since 2022.</p></div>
+                            <div><h4 className="font-bold text-lg mb-6">Quick Links</h4><ul className="space-y-3">{['home', 'about', 'programs', 'gallery', 'team', 'contact'].map((page) => (<li key={page}><button onClick={() => navigateToPage(page)} className="text-gray-400 hover:text-emerald-400 transition-colors" >{page.charAt(0).toUpperCase() + page.slice(1)}</button></li>))}</ul></div>
+                            <div><h4 className="font-bold text-lg mb-6">Our Programs</h4><ul className="space-y-3 text-gray-400 text-sm"><li>Healthcare Initiatives</li><li>Women's Empowerment</li><li>Educational Development</li><li>Community Seminars</li><li>Environmental Programs</li></ul></div>
+                            <div><h4 className="font-bold text-lg mb-6">Contact Info</h4><ul className="space-y-4"><li className="flex items-start"><Phone className="h-5 w-5 mr-3 flex-shrink-0 text-emerald-400" /><a href="tel:9925255729" className="text-gray-400 hover:text-white transition-colors">9925255729</a></li><li className="flex items-start"><Mail className="h-5 w-5 mr-3 flex-shrink-0 text-emerald-400" /><a href="mailto:ACTIVEFORYOUTRUST@GMAIL.COM" className="text-gray-400 hover:text-white transition-colors break-all text-sm">ACTIVEFORYOUTRUST@GMAIL.COM</a></li><li className="flex items-start"><MapPin className="h-5 w-5 mr-3 flex-shrink-0 text-emerald-400" /><span className="text-gray-400">Ahmedabad, Gujarat, India</span></li></ul></div>
+                        </div>
+                        <div className="border-t border-gray-800 pt-8"><div className="flex flex-col md:flex-row justify-between items-center gap-4"><p className="text-gray-400 text-sm text-center md:text-left">&copy; {new Date().getFullYear()} Active For You Charitable Trust. All rights reserved. <button onClick={() => setShowAdminLogin(true)} className="text-gray-600 hover:text-gray-500 text-xs ml-2">Admin</button></p><div className="flex gap-4"><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Facebook page"><Facebook className="h-5 w-5" /></a><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Instagram page"><Instagram className="h-5 w-5" /></a><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Twitter page"><Twitter className="h-5 w-5" /></a><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn page"><Linkedin className="h-5 w-5" /></a></div></div></div>
+                    </div>
+                </footer>
+            );
+
+
+            // IDE AI: This is the main return statement. It pieces together all the components based on the activePage state.
+            return (
+                <div className="min-h-screen bg-white font-sans">
+                    <Navigation />
+                    <main id="main-content">
+                        {activePage === 'home' && <HomePage />}
+                        {activePage === 'about' && <AboutPage />}
+                        {activePage === 'programs' && <ProgramsPage />}
+                        {activePage === 'gallery' && <GalleryPage />}
+                        {activePage === 'team' && <TeamPage />}
+                        {activePage === 'contact' && <ContactPage />}
+                    </main>
+                    <Footer />
+
+
+                    {isModalOpen && <DonationModal />}
+                    {showAdminLogin && <AdminLoginModal />}
+
+
+                    {notification.show && (
+                        <div className="fixed bottom-5 right-5 bg-emerald-600 text-white py-3 px-6 rounded-lg shadow-lg animate-fadeInUp z-50">
+                            {notification.message}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<CharityWebsite />);
+        
+        // Hide loading screen after React renders
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 300);
+            }
+        }, 100);
+    </script>
+</body>
+</html>
